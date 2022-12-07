@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentinel-dashboard
+spec:
+  selector:
+    matchLabels:
+      app: sentinel-dashboard
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sentinel-dashboard
+    spec:
+      containers:
+        - name: sentinel-dashboard
+          image: sentinel-dashboard:1.8.6
+          ports:
+            - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sentinel-dashboard
+spec:
+  selector:
+    app: sentinel-dashboard
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sentinel-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: www.sentinel.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: sentinel-dashboard
+                port:
+                  number: 8080

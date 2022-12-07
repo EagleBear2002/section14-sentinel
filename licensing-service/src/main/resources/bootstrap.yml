@@ -1,0 +1,22 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: licensingservice
+  profiles:
+    active:
+      default
+  cloud:
+    nacos:
+      config:
+        server-addr: nacos-headless:8848
+        file-extension: yml
+      discovery:
+        server-addr: nacos-headless:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: sentinel-dashboard:8080
+feign:
+  sentinel:
+    enabled: true
