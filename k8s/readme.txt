@@ -16,3 +16,7 @@ kubectl create -f k8s-deploy-sentinel.yaml
 k8s-deploy-db.yaml
 k8s-deploy-org.yaml
 k8s-deploy-license.yaml
+
+注意在postman里共用section13-nacos的访问
+
+git push -u origin master
