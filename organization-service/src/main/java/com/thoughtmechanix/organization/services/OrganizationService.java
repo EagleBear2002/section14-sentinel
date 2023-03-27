@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -14,6 +15,7 @@ public class OrganizationService {
     private OrganizationRepository orgRepository;
 
     public Optional<Organization> getOrg(String organizationId) {
+        randomlyRunLong();
         return orgRepository.findById(organizationId);
     }
 
@@ -30,5 +32,21 @@ public class OrganizationService {
 
     public void deleteOrg(Organization org){
 //        orgRepository.delete( org.getId());
+    }
+
+    private void randomlyRunLong() {
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+
+        if (randomNum != 3) sleep();
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

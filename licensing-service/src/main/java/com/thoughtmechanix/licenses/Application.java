@@ -16,7 +16,8 @@ public class Application {
 
     @LoadBalanced
     @Bean
-    @SentinelRestTemplate
+    @SentinelRestTemplate(blockHandler = "handleException",
+            blockHandlerClass = ExceptionUtil.class)
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
